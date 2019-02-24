@@ -14,7 +14,7 @@ class GameBoard extends Component {
         topScore: 0
         }
 
-    defaultState = Object.freeze(myChars)
+    defaultState = myChars
 
     componentDidUpdate() {
         this.winCheck()
@@ -24,7 +24,19 @@ class GameBoard extends Component {
         const resetChars = this.defaultState
         let newCharArr = [...this.state.characters]        
         if (clicked === false) {
-            newCharArr[key].clicked = true
+
+
+            // newCharArr[key].clicked = true
+            newCharArr.map(function(char) {
+                if (char.key === key) {
+                    char.clicked = true
+                }
+            })
+            //if newCharArr.key = key
+
+
+            this.shuffleArray(newCharArr)
+
             this.setState({
             score: this.state.score + 1,
             characters: newCharArr
@@ -32,35 +44,81 @@ class GameBoard extends Component {
  
         }else{
             alert('You Lose!')
+            let resetArr = this.state.characters.map(function(char) {
+                if (char) {
+                   return {
+                       clicked: false,
+                       img: char.img,
+                       key: char.key
+                        }
+                }
+            })
             this.setState({
-                characters: this.defaultState,
+                characters: resetArr,
                 score: 0,
                 topScore: (this.state.score > this.state.topScore) ? this.state.score : this.state.topScore
             })
         }
   
-        console.log(this.winCheck)
+        // console.log(this.winCheck)
     }
 
     winCheck = () => {
-        const resetChars = this.defaultState
-        if (this.state.score === this.state.characters.length) {
+        if (this.state.score === 12) {
             alert('You Win!')
-            console.log(resetChars)
-            this.setState({
-                characters: this.defaultState,
-                score: 0,
-                topScore: this.state.characters.length 
+            let resetArr = this.state.characters.map(function(char) {
+                if (char) {
+                   return {
+                       clicked: false,
+                       img: char.img,
+                       key: char.key
+                        }
+                }
             })
+            console.log(resetArr)
+            setInterval(() => {
+
+                this.setState({
+                    characters: resetArr,
+                    score: 0,
+                    topScore: resetArr.length
+                })
+            }, 1000)
         }
     }
+
+    shuffleArray = (array) => {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+
+        return this.setState({
+            characters: array 
+        })
+    }
+
 
     render() {
         return(
             <div>
                 <h3>Score: {this.state.score}</h3>
                 <h3>Top Score: {this.state.topScore}</h3>
-                <CharacterCard characters={this.state.characters} key={this.state.characters.key} handleClick={this.handleClick} />
+                <div style={{
+                    className: 'container'
+                }}>
+
+                {this.state.characters.map((char) => {
+                    return(<CharacterCard  
+                        info={char.key}
+                        clicked={char.clicked}
+                        img={char.img}
+                        handleClick={this.handleClick} />
+                        )
+                    })}
+                    </div>
             </div>
     )
 }

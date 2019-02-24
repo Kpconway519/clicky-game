@@ -3,21 +3,30 @@ import "./style.css";
 
 
 
-function CharacterCard(props, key) {
+function CharacterCard(props) {
     
 
-    return(props.characters.map((char) => (
+    
 
-      <img className="catCard" src={char.img} 
+return(     <div>
+
+<img className="catCard" src={props.img} 
         alt="" 
         style={{
           width: "170px",
-          height: '170px'
-            }} 
-        onClick={() => props.handleClick(char.key, char.clicked)}
-       />
-      ))
-    )
-}
+          height: '170px',
+          float: 'left'
+        }} 
+        clicked={toString(props.clicked)}
+    onClick={(event) => {
+      console.log(event)
+      props.handleClick(props.info, props.clicked)
+    }}
+        key={props.info}
+        />
+
+        </div> 
+    
+)}
 
 export default CharacterCard
