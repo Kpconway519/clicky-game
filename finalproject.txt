@@ -1,0 +1,50 @@
+Final Project
+
+
+For this project, we are making an app for real estate investors. This app takes data from the First Multiple Listing Service website and feeds the data through an algorithm which tells the investor whether or not the property meets their required profit yield. We are using data for Atlanta, GA for this project.
+
+We feel that this project is valuable because it allows investors to maximize their return on investment.
+
+
+Technologies used:
+
+React will be used for forms at the least. Should use for the whole frontend.
+
+Node and Express will be used for the server
+
+Two new things:
+    * Express Sessions
+    * 
+
+
+#    Bingxi Du
+
+Backend and Database
+
+#    Kevin Conway
+
+UI and UX
+
+#    Chris Wood
+
+API stuff. Back of the front end.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
